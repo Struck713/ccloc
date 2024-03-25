@@ -90,13 +90,14 @@ int main(int argc, char** argv) {
     counts.items = (LanguageCount*) malloc(sizeof(LanguageCount) * counts.capacity);
 
     Files files;
-    files.capacity = 10;
+    files.capacity = 20;
     files.count = 0;
     files.items = (char**) malloc(sizeof(char*) * files.capacity);
 
     listdir(root_path, &files);
+    // printf("COUNT: %d, CAP: %d, LAST: %s\n", files.count, files.capacity, files.items[files.count - 1]);
 
-    int totalFiles = files.count, totalLines = 0, totalComment = 0, totalBlank = 0, totalCode = 0;
+    int totalFiles = 0, totalLines = 0, totalComment = 0, totalBlank = 0, totalCode = 0;
     printf("----------------------------------------------------------------------------------------\n");
     printf("%-16s%-16s%-16s%-16s%-16s%-16s\n", "Language", "Files", "Lines", "Blank", "Comment", "Code");
     printf("----------------------------------------------------------------------------------------\n");
@@ -187,7 +188,6 @@ void listdir(char* root_path, Files* files) {
 }
 
 void* process_file(char* file_name, LanguageCounts* counts) {
-    char buffer[STRING_BUF_SIZE] = "";
     // Get file extension
     int dot = 0;
     int length = 0;
@@ -228,7 +228,8 @@ void* process_file(char* file_name, LanguageCounts* counts) {
     }
 
     // Open file
-    FILE* file = fopen(buffer, "r");
+    FILE* file = fopen(file_name, "r");
+    printf("%s\n", file_name);
     if (file == NULL) return NULL;
 
     // If we don't find it, create a new one

@@ -92,11 +92,11 @@ int main(int argc, char** argv) {
     Files files;
     files.capacity = 10;
     files.count = 0;
-    files.items = (char**) malloc(sizeof(char*) * counts.capacity);
+    files.items = (char**) malloc(sizeof(char*) * files.capacity);
 
     listdir(root_path, &files);
 
-    int totalFiles = 0, totalLines = 0, totalComment = 0, totalBlank = 0, totalCode = 0;
+    int totalFiles = files.count, totalLines = 0, totalComment = 0, totalBlank = 0, totalCode = 0;
     printf("----------------------------------------------------------------------------------------\n");
     printf("%-16s%-16s%-16s%-16s%-16s%-16s\n", "Language", "Files", "Lines", "Blank", "Comment", "Code");
     printf("----------------------------------------------------------------------------------------\n");
@@ -113,6 +113,11 @@ int main(int argc, char** argv) {
     printf("----------------------------------------------------------------------------------------\n");
     printf("%-16s%-16d%-16d%-16d%-16d%-16d\n", "Total", totalFiles, totalLines, totalBlank, totalComment,  totalCode);
     printf("----------------------------------------------------------------------------------------\n");
+
+    free(counts.items);
+    for (int i = 0; i < files.count; i++) 
+        free(files.items[i]);
+    free(files.items);
 }
 
 void listdir(char* root_path, Files* files) {
@@ -145,8 +150,6 @@ void listdir(char* root_path, Files* files) {
             char* path = (char*) malloc(buffer_size + 1);
             strncpy(path, buffer, buffer_size);
             path[buffer_size] = 0;
-
-            fprintf(stderr, "%s\n", path);
 
             // Handle directory, open and push it to the stack
             if (entry->d_type == DT_DIR) {

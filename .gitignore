@@ -1,3 +1,4 @@
 *.out
 test
 .vscode
+ccloc

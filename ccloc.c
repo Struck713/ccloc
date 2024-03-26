@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
 #include <pthread.h>
-
 #include "ccloc.h"
 
 #define FILE_BUF_SIZE 65536 // Something from SOF
@@ -51,6 +49,7 @@ int main(int argc, char** argv) {
     }
 
     LanguageCount sumCounts[SUPPORTED_LANGUAGES];
+
     for (int i = 0; i < SUPPORTED_LANGUAGES; ++i) sumCounts[i] = (LanguageCount) { i , 0, 0, 0, 0, 0 };
     for (int thread = 0; thread < THREAD_POOL_SIZE; ++thread) {
         LanguageCount** counts;
@@ -75,13 +74,13 @@ int main(int argc, char** argv) {
 
     int totalFiles = 0, totalLines = 0, totalComment = 0, totalBlank = 0, totalCode = 0;
     printf("----------------------------------------------------------------------------------------\n");
-    printf("%-16s%-16s%-16s%-16s%-16s%-16s\n", "Language", "Files", "Lines", "Blank", "Comment", "Code");
+    printf(" %-16s%-16s%-16s%-16s%-16s%-16s\n", "Language", "Files", "Lines", "Blank", "Comment", "Code");
     printf("----------------------------------------------------------------------------------------\n");
     for (int i = 0; i < SUPPORTED_LANGUAGES; i++) {
         LanguageCount count = sumCounts[i];
         if (count.files > 0) {
             int code = count.code - count.comment;
-            printf("%-16s%-16d%-16d%-16d%-16d%-16d\n", LANGUAGES[count.language].name, count.files, count.lines, count.blank, count.comment, code);
+            printf(" %-16s%-16d%-16d%-16d%-16d%-16d\n", LANGUAGES[count.language].name, count.files, count.lines, count.blank, count.comment, code);
             totalFiles += count.files;
             totalLines += count.lines;
             totalComment += count.comment;
@@ -90,7 +89,7 @@ int main(int argc, char** argv) {
         }
     }
     printf("----------------------------------------------------------------------------------------\n");
-    printf("%-16s%-16d%-16d%-16d%-16d%-16d\n", "Total", totalFiles, totalLines, totalBlank, totalComment,  totalCode);
+    printf(" %-16s%-16d%-16d%-16d%-16d%-16d\n", "Total", totalFiles, totalLines, totalBlank, totalComment,  totalCode);
     printf("----------------------------------------------------------------------------------------\n");
 
 }

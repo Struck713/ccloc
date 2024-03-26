@@ -2,4 +2,4 @@
 
 set -xe
 
-gcc -Wall -o ccloc -pthread ccloc.c
+clang -O3 -o ccloc -pthread ccloc.c

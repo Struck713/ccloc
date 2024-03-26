@@ -26,6 +26,12 @@ typedef struct {
     char** items;
     int count;
     int capacity;
+} LanguageCounts;
+
+typedef struct {
+    char** items;
+    int count;
+    int capacity;
 } Files;
 
 typedef struct {
@@ -34,28 +40,40 @@ typedef struct {
     int end;
 } ThreadArgs;
 
-#define SUPPORTED_LANGUAGES 17
+// TODO: add more languages and multi-extension support support per
+#define SUPPORTED_LANGUAGES 31
 const Language LANGUAGES[SUPPORTED_LANGUAGES] = {
-    { "TypeScript", "ts" },
-    { "JavaScript", "js" },
-    { "Java", "java" },
-    { "C", "c" },
-    { "Go", "go" },
-    { "D", "d" },
+    { "Assembly", "asm" },
+    { "Bourne shell", "sh" },
     { "C", "c" },
     { "C/C++ Header", "h" },
+    { "C#", "cs" },
     { "C++", "cpp" },
-    { "Python", "py" },
-    { "Perl", "perl" },
+    { "CMake", "cmake" },
     { "CSS", "css" },
-    { "Plain Text", "txt" },
+    { "D", "d" },
+    { "Dart", "dart" },
+    { "Docker", "docker" },
+    { "Go", "go" },
+    { "Groovy", "groovy" },
+    { "Haskell", "hs" },
+    { "HTML", "html" },
+    { "Jai", "jai" },
+    { "Java", "java" },
+    { "JavaScript", "js" },
+    { "JSON", "json" },
+    { "JSX", "jsx" },
+    { "Lua", "lua" },
+    { "Makefile", "Makefile" },
     { "Markdown", "md" },
-    { "Bourne shell", "sh" },
-    { "Assembly", "asm" },
+    { "Perl", "perl" },
+    { "PHP", "php" },
+    { "Plain Text", "txt" },
+    { "Python", "py" },
     { "R", "r" },
     { "Rust", "rs" },
-    { "Makefile", "Makefile" },
     { "SQL", "sql" },
+    { "TypeScript", "ts" }
 };
 
 void* batch_process(void* arg);

@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
     int batchSize = filesLeft / THREAD_POOL_SIZE;
     batchSize = batchSize <= 0 ? filesLeft : batchSize;
 
+    // TODO: dynamically allocate thread pool based on thread count avaliable
     pthread_t threads[THREAD_POOL_SIZE];
     for (int thread = 0; thread < THREAD_POOL_SIZE; ++thread) { 
         ThreadArgs* args = (ThreadArgs*) malloc(sizeof(ThreadArgs));

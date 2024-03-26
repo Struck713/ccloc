@@ -1,4 +1,4 @@
 *.out
-test
+test*
 .vscode
 ccloc

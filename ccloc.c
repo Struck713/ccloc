@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <string.h>
 #include <ctype.h>
 #include <pthread.h>
@@ -127,7 +128,12 @@ void listdir(char* root_path, Files* files) {
             path[buffer_size] = 0;
 
             // Handle directory, open and push it to the stack
+#ifdef _DIRENT_HAVE_D_TYPE
             if (entry->d_type == DT_DIR) {
+#else
+            struct stat sb;
+            if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode)) {
+#endif
                 DIR* dir = opendir(path); 
                 if (dir == NULL) { 
                     free(path); 
